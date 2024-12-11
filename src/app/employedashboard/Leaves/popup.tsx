@@ -4,7 +4,8 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import CreateLeave from '@/app/servercoponent/CreateLeave';
-import verificationmail from '@/app/servercoponent/verificationmali';
+import verificationmail from '@/app/servercoponent/verificationmail';
+
 
 interface PopupProps {
   isOpen: boolean;
@@ -41,7 +42,7 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
           end_date: new Date(data.start_date).toISOString(),
         };
         const response = await CreateLeave(formattedData);
-        // await verificationmail(response)
+        await verificationmail(response)
         console.log("your email is called")
         if (response.status === "error") {
           toast.error(response.message, { position: 'top-center' });
