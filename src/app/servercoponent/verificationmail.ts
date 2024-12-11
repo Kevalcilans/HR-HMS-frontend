@@ -19,7 +19,7 @@ export default async function verificationmail(data:any) {
    const url2 = process.env.PUBLIC_URL
     const url = `${url2}/sendmail`;
     const emailPayload = {
-        to: 'rnkkhara@gmail.com',
+        to: 'help.vnurture@gmail.com',
         subject: "Leave Application Verification",
         text: "Please verify the leave details of the employee.",
         html: `
