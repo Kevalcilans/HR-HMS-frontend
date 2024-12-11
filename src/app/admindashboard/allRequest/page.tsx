@@ -1,3 +1,5 @@
+Admindashboard / Allrequest
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -109,7 +111,7 @@ const AllRequests = () => {
     "End Date",
     "working Days",
     "Status",
-    "Reason",
+    // "Reason",
     "Action",
   ];
 
@@ -181,7 +183,7 @@ const AllRequests = () => {
                     {request.status}
                   </span>
                 </td>
-                <td className="py-3 px-4 text-center">{request.reason}</td>
+                {/* <td className="py-3 px-4 text-center">{request.reason}</td> */}
                
                 <td>
                   <div className="flex justify-center gap-2">
@@ -230,3 +232,4 @@ const AllRequests = () => {
 };
 
 export default AllRequests;
+

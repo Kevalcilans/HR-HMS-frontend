@@ -1,29 +1,15 @@
+
 "use client";
 
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { FaThLarge, FaUsers, FaUserPlus } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
-import GetAllLeaves from "@/app/servercoponent/GetallLeaves";
+import GetAllLevaes from "../servercoponent/GetallLeaves";
 import AdmindashboardCount from "../servercoponent/countemployeeData";
-import ApproveLeave from "../servercoponent/ApproveLeaves";
-import Sendmail from "../servercoponent/sendmail";
-
-// Types for leave requests
-interface LeaveRequest {
-  leave_request_id: number;
-  start_date: string;
-  end_date: string;
-  leave_days: number;
-  status: string;
-  reason: string;
-  isUnpaid: boolean;
-  user: {
-    first_name: string;
-    last_name: string;
-    email: string;
-  };
-}
+import CountLeaves from "../servercoponent/Countemployedashboard";
+import CountuserLeaves from "../servercoponent/Countemployedashboard";
+import LeavefindById from "../servercoponent/LeaveRequestById";
 
 // Reusable StatCard component
 const StatCard = ({
@@ -46,23 +32,29 @@ const StatCard = ({
 
 const Dashboard = () => {
   const [pipelineData, setPipelineData] = useState({
-    Totaldepartment: 0,
-    Employes: 0,
-    pendingRequest: 0,
+    availableLeaves: 0,
+    paidLeaves: 0,
+    unpaidLeave: 0,
+    employess: 0
   });
-  console.log("pipeline data is here")
-  console.log(pipelineData)
 
-  const [leaveRequests, setLeaveRequests] = useState<LeaveRequest[]>([]);
+  console.log("pipeline data is here");
+  console.log(pipelineData);
+
+  const [leaveRequests, setLeaveRequests] = useState([]);
 
   // Fetching leave requests and count data
   const fetchLeaveRequests = async () => {
     try {
-      const response = await GetAllLeaves();
-      const count = await AdmindashboardCount();
-      console.log("count is here")
-      console.log(count)
-      console.log(count.data.CountDepartment)
+    
+      const response = await LeavefindById();
+      const countdata = await CountuserLeaves()
+      console.log("count data comes sucessfully")
+      console.log(countdata)
+      // const count = await CountuserLeaves();
+      // console.log("count is here");
+      // console.log(count);
+      // console.log(count?.data?.CountDepartment);
 
       if (response?.error) {
         toast.error(response.error, { position: "top-center" });
@@ -70,11 +62,19 @@ const Dashboard = () => {
       }
 
       setLeaveRequests(response?.data || []);
+      // setPipelineData({
+      //   availableLeaves: parseInt(countdata?.data?.availableLeaves || "0"),
+      //   Employes: parseInt(countdata?.data?.paidLeaves || "0"),
+      //   pendingRequest: parseInt(countdata?.data?.unpaidLeave || "0"),
+      // });
+      //@ts-ignore
       setPipelineData({
-        Totaldepartment: parseInt(count?.data?.CountDepartment || "0"),
-        Employes: parseInt(count?.data?.CountEmployes || "0"),
-        pendingRequest: parseInt(count?.data?.pendingRequest || "0"),
-      });
+        availableLeaves: parseInt(countdata?.data?.availableLeaves),
+        paidLeaves: parseInt(countdata?.data?.paidLeaves),
+        unpaidLeave: parseInt(countdata?.data?.unpaidLeave),
+        employess: parseInt(countdata?.data?.employess)
+      })
+     
     } catch (error) {
       console.error("Error fetching leave requests:", error);
       toast.error("An error occurred while fetching leave requests.", {
@@ -96,61 +96,18 @@ const Dashboard = () => {
     "Working Days",
     "Status",
     "Reason",
-    "Action",
   ];
 
-  const updateLeaveStatus = async (status: string, id: number) => {
-    try {
-      const confirmationMessage = `Are you sure you want to ${status} this request?`;
-      const userConfirmed = window.confirm(confirmationMessage);
-  
-      if (!userConfirmed) {
-        // If the user cancels, do nothing
-        return;
-      }
-  
-      const response: any = await ApproveLeave(status, id);
-      if (response.status === "error") {
-        toast.error(response.message, { position: "top-center" });
-        return;
-      }
-  
-      setLeaveRequests((prevRequests) =>
-        prevRequests.map((request) =>
-          request.leave_request_id === id
-            ? { ...request, status }
-            : request
-        )
-      );
-  
-      toast.success(`Request has been ${status} successfully!`, { position: "top-center" });
-    } catch (error) {
-      console.error("Error updating leave status:", error);
-      toast.error("An error occurred. Please try again.", {
-        position: "top-center",
-      });
-    }
+  // Placeholder functions for mail sending and updating leave status
+  const sendMail = (email: string) => {
+    console.log("Sending email to:", email);
+    // Your email sending logic here
   };
-  
-  async function sendMail(email:string,start_date:string,end_date:string,status:string){
 
-    try {
-      const response: any = await Sendmail(email,start_date,end_date,status);
-      console.log("response data is here", response);
-      if (response.status === "error") {
-        toast.error(response.message, { position: 'top-center' });
-      } else {
-        console.log("email send sucess fully")
-        // toast.success(response.message, { position: 'top-center' });
-      }
-    } catch (error) {
-      console.log("error found", error);
-      toast.error("An error occurred. Please try again.", { position: 'top-center' });
-    }
-  }
-
-
- 
+  const updateLeaveStatus = (status: string, leaveRequestId: number) => {
+    console.log(`Updating leave request ${leaveRequestId} status to ${status}`);
+    // Your logic for updating leave request status here
+  };
 
   return (
     <div className="flex flex-col gap-6 bg-gray-100 w-full min-h-screen p-6">
@@ -159,108 +116,65 @@ const Dashboard = () => {
       {/* Stat Cards */}
       <div className="grid grid-cols-3 gap-6">
         <StatCard
-          label="Total Departments"
+          label="Available Leaves"
           icon={<FaThLarge />}
-          value={pipelineData.Totaldepartment}
+          value={pipelineData.availableLeaves}
         />
         <StatCard
-          label="Employees"
+          label="Paid Leaves"
           icon={<FaUsers />}
-          value={pipelineData.Employes}
+          value={pipelineData.paidLeaves}
         />
         <StatCard
-          label="Pending Requests"
+          label="Unpaid Leaves"
           icon={<FaUserPlus />}
-          value={pipelineData.pendingRequest}
+          value={pipelineData.unpaidLeave}
+        />
+        <StatCard
+          label="Total Employees"
+          icon={<FaUserPlus />}
+          value={pipelineData.employess}
         />
       </div>
 
-      <h1 className="font-semibold text-2xl mt-6">Pending Leave Requests</h1>
+      <h1 className="font-semibold text-2xl mt-6">Leave Request</h1>
       <div className="bg-white shadow-md overflow-scroll mt-4">
-  <table className="min-w-full table-auto over">
-    {/* Table Header */}
-    <thead>
-      <tr className="bg-blue-600 text-white font-medium">
-        {headers.map((header, index) => (
-          <th key={index} className="py-3 px-4 text-center">
-            {header}
-          </th>
-        ))}
-      </tr>
-    </thead>
+        {/* Table Header */}
+        <div className="flex bg-blue-600 text-white font-medium">
+          {headers.map((header, index) => (
+            <div key={index} className="flex-1 text-center py-3">
+              {header}
+            </div>
+          ))}
+        </div>
 
-    {/* Table Body */}
-    <tbody>
-      {leaveRequests.filter((item:any)=>item.status == "pending").map((request, index) => (
-        <tr
-          key={request.leave_request_id}
-          className={`${
-            index % 2 === 0 ? "bg-gray-50" : "bg-gray-100"
-          } hover:bg-blue-100 transition`}
-        >
-          <td className="py-3 px-4 text-center">{index + 1}</td>
-          <td className="py-3 px-4 text-center">
-            {`${request.user.first_name} ${request.user.last_name}`}
-          </td>
-          <td className="py-3 px-4 text-center">
-            {new Date(request.start_date).toLocaleDateString()}
-          </td>
-          <td className="py-3 px-4 text-center">
-            {new Date(request.end_date).toLocaleDateString()}
-          </td>
-          <td className="py-3 px-4 text-center">{request.leave_days}</td>
-          <td className="py-3 px-4 text-center font-bold">
-            <span
-              className={`${
-                request.status === "approved"
-                  ? "text-green-600"
-                  : request.status === "pending"
-                  ? "text-yellow-600"
-                  : "text-red-600"
-              }`}
-            >
-              {request.status}
-            </span>
-          </td>
-          <td className="py-3 px-4 text-center">{request.reason}</td>
+        {/* Leave Request Rows */}
+        {leaveRequests.filter((items=>items.status == "approved" )).map((request, index) => (
+          <div
+            key={request.leave_request_id}
+            className={`flex py-3 ${
+              index % 2 === 0 ? "bg-gray-50" : "bg-gray-100"
+            } hover:bg-blue-100 transition`}
+          >
+            <div className="flex-1 text-center">{request.leave_request_id}</div>
+            <div className="flex-1 text-center">
+              {`${request.user.first_name} ${request.user.last_name}`}
+            </div>
+            <div className="flex-1 text-center">
+              {new Date(request.start_date).toLocaleDateString()}
+            </div>
+            <div className="flex-1 text-center">
+              {new Date(request.end_date).toLocaleDateString()}
+            </div>
+            <div className="flex-1 text-center">{request?.leave_days}</div>
+            <div className="flex-1 text-center">{request?.status}</div>
+           
+            {/* <div className="flex-1 text-center">{request.reason}</div> */}
+            
           
-          <td className="py-3 px-4 text-center">
-                  {request.status === "pending" ? (
-                    <div className="flex justify-center gap-2">
-                      <button
-                        type="button"
-                        className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
-                        onClick={() => {
-                          sendMail(request.user.email,new Date(request.start_date).toLocaleDateString(),new Date(request.end_date).toLocaleDateString(),"approved");
-                          updateLeaveStatus("approved", request.leave_request_id);
-                         
-                        }}
-                      >
-                        Approve
-                      </button>
-                      <button
-                        type="button"
-                        className="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5"
-                        onClick={() =>{
-                          sendMail(request.user.email,new Date(request.start_date).toLocaleDateString(),new Date(request.end_date).toLocaleDateString(),"rejected");
-                          updateLeaveStatus("rejected", request.leave_request_id)
-                         
-                        }
-                         
-                        }
-                      >
-                        Reject
-                      </button>
-                    </div>
-                  ) : (
-                    <p>Send Mail</p>
-                  )}
-                </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+          </div>
+        ))}
+      </div>
 
       <ToastContainer />
     </div>
@@ -268,3 +182,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

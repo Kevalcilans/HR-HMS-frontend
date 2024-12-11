@@ -1,6 +1,8 @@
+Verification mail.ts
 "use server"
 
 import { cookies } from "next/headers";
+import formatDateToISO from "../utils/dateformatefn";
 
 interface ApiResponse {
   data: {
@@ -9,29 +11,33 @@ interface ApiResponse {
   message: string;
 }
 
-export default async function Passwordverify(email:string,password:string): Promise<ApiResponse | { error: string }> {
+export default async function verificationmail(data:any) {
+
+    console.log("data is comming form that")
+    console.log(data)
   try {
    
    const url2 = process.env.PUBLIC_URL
     const url = `${url2}/sendmail`;
     const emailPayload = {
-        to: `${email}`,
-        subject: "Welcome to Cilans System !",
-        text: "Welcome! Your account has been successfully created.",
+        to: 'rnkkhara@gmail.com',
+        subject: "Leave Application Verification",
+        text: "Please verify the leave details of the employee.",
         html: `
-            <p>Dear ${email},</p>
-            <p>Welcome to our service! We're excited to have you on board.</p>
-            <p>Your account has been successfully created with the following details:</p>
+            <p>Dear Manager,</p>
+            <p>This employee has applied for a <strong>${data.data.leave_type}</strong> leave.</p>
             <ul>
-                <li><strong>Email:</strong> ${email}</li>
-                <li><strong>Password:</strong> ${password}</li>
+                <li><strong>Email:</strong> ${data.data.user.email}</li>
+                <li><strong>Start Date:</strong> ${formatDateToISO(data.data.start_date)}</li>
+                <li><strong>End Date:</strong> ${formatDateToISO(data.data.end_date)}</li>
             </ul>
-            <p>Please make sure to keep your password secure and do not share it with anyone. If you did not create this account, please contact us immediately.</p>
-            <p>We are here to help if you have any questions. Enjoy exploring our platform!</p>
+            <p>Please check more details on the dashboard. Kindly confirm and take the necessary actions.</p>
             <p>Best regards,</p>
-            <p>The Cilans system Team</p>
+            <p>Cilans System</p>
         `
     };
+    
+    
     
      
 

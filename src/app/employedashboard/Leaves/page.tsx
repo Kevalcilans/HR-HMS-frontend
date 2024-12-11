@@ -138,13 +138,13 @@ const AllRequests = () => {
     "Working Days",
     "Status",
     "Leave Type",
-    "Reason",
+    // "Reason",
     "View",
   ];
 
   return (
     <div className="flex flex-col gap-6 bg-gray-100 w-full min-h-screen p-6">
-      <h1 className="text-3xl font-bold text-blue-900">All Leave Request</h1>
+      <h1 className="text-3xl font-bold text-blue-900">All LeaveRequests</h1>
 
       <div className="flex justify-between items-center">
         <select
@@ -162,7 +162,7 @@ const AllRequests = () => {
             className="bg-blue-800 text-white font-semibold rounded-md m-2 p-2 px-4"
             onClick={openAddLeavePopup}
           >
-            Add Department
+            Create Request 
           </button>
         </div>
       </div>
@@ -206,10 +206,10 @@ const AllRequests = () => {
               {request.status}
             </div>
             <div className="flex-1 text-center">{request.leave_type}</div>
-            <div className="flex-1 text-center">{request.reason}</div>
+            {/* <div className="flex-1 text-center">{request.reason}</div> */}
             <div className="flex-1 text-center">
               <button
-                className="bg-blue-800 text-white font-semibold rounded-md m-2 p-2 px-4"
+                className="bg-blue-800 text-white font-semibold rounded-md p-2 mr-2 px-4 w-36"
                 onClick={() => openViewDetailsPopup(request.leave_request_id)}
               >
                 View Details
@@ -238,3 +238,4 @@ const AllRequests = () => {
 };
 
 export default AllRequests;
+

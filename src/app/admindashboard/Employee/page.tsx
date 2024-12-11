@@ -193,7 +193,7 @@ const Employee = () => {
                     className="bg-blue-800 text-white font-semibold rounded-md m-2 p-2 px-4"
                     onClick={openPopup}
                 >
-                    Create user
+                    Create Employee
                 </button>
                 <AddPartnersPopup
                     //@ts-ignore
@@ -254,3 +254,4 @@ const Employee = () => {
 };
 
 export default Employee;
+

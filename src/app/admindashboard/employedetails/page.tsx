@@ -1,3 +1,4 @@
+Admindahboard / employedetials
 // "use client";
 
 // import React, { useEffect, useState, Suspense } from "react";
@@ -250,7 +251,7 @@
 
 const AllRequests = ()=>{
 return(
-  <h1>This is a simple exmaple</h1>
+  <h1>This component used for graph</h1>
 )
 }
 export default AllRequests

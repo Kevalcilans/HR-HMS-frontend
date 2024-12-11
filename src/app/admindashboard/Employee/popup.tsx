@@ -171,9 +171,10 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
               <input
                 type="number"
                 value={1}
-                className="mt-1 p-2 w-full border border-gray-300 rounded"
+                className="mt-1 p-2 w-full border border-gray-400  bg-gray-100 rounded"
                 {...register('departmentId', { valueAsNumber:true })}
                 disabled={true}
+                
               />
             </label>
             {errors.departmentId && <p className="text-red-500 text-sm mt-1">{errors.departmentId.message}</p>}
@@ -254,3 +255,4 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
 };
 
 export default AddEmployeePopup;
+

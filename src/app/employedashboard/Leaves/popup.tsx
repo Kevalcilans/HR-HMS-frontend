@@ -4,6 +4,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import CreateLeave from '@/app/servercoponent/CreateLeave';
+import verificationmail from '@/app/servercoponent/verificationmali';
 
 interface PopupProps {
   isOpen: boolean;
@@ -19,7 +20,7 @@ interface FormData {
 }
 
 const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
-  const [leaveFormat, setLeaveFormat] = useState<'halfday' | 'fullday' | 'multiday'>('fullday');
+  const [leaveFormat, setLeaveFormat] = useState<'halfday' | 'fullday' | 'multiday'>('multiday');
   const [halfleavetype,sethalfleave] = useState();
   
   const { register, handleSubmit, formState: { errors }, reset, control } = useForm<FormData>();
@@ -40,6 +41,8 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
           end_date: new Date(data.start_date).toISOString(),
         };
         const response = await CreateLeave(formattedData);
+        // await verificationmail(response)
+        console.log("your email is called")
         if (response.status === "error") {
           toast.error(response.message, { position: 'top-center' });
         } else {
@@ -61,6 +64,7 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
           end_date: new Date().toISOString(),
         };
         const response = await CreateLeave(halfday);
+         await verificationmail(response)
         if (response.status === "error") {
           toast.error(response.message, { position: 'top-center' });
         } else {
@@ -81,6 +85,7 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
           end_date: new Date(data.end_date).toISOString(),
         };
         const response = await CreateLeave(multiday);
+         await verificationmail(response)
         if (response.status === "error") {
           toast.error(response.message, { position: 'top-center' });
         } else {
@@ -139,7 +144,7 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
             />
             Full Day
           </label>
-          <label className="mr-6">
+          <label className="mr-6 pl-7">
             <input
               type="radio"
               name="leaveFormat"
@@ -229,3 +234,4 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
 };
 
 export default AddLeavePopup;
+
