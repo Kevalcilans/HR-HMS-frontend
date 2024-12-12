@@ -116,14 +116,14 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex overflow-hidden">
+        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex overflow-hidden relative">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{
               backgroundImage: "url('/loginimage.svg')",
             }}
           ></div>
-          <h1 className='absolute top-20 font-semibold text-2xl max-w-2xl text-center pl-16 font-sans '>Welcome to our HR platform, your one-stop solution for seamless employee management!</h1>
+          <h1 className='absolute top-10 font-semibold text-2xl max-w-2xl text-center pl-16 font-sans '>Welcome to our HR platform, your one-stop solution for seamless employee management!</h1>
         </div>
       </div>
       <ToastContainer />
