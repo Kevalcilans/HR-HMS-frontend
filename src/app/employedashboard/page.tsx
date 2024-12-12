@@ -94,7 +94,6 @@ const Dashboard = () => {
     "End Date",
     "Working Days",
     "Status",
-    "Reason",
   ];
 
   // Placeholder functions for mail sending and updating leave status
@@ -115,22 +114,22 @@ const Dashboard = () => {
       {/* Stat Cards */}
       <div className="grid grid-cols-3 gap-6">
         <StatCard
-          label="availableLeaves"
+          label="available Leaves"
           icon={<FaThLarge />}
           value={pipelineData.availableLeaves}
         />
         <StatCard
-          label="paidLeves"
+          label="Paid Leves"
           icon={<FaUsers />}
           value={pipelineData.paidLeaves}
         />
         <StatCard
-          label="unpaidLeave"
+          label="Unpaid Leave"
           icon={<FaUserPlus />}
           value={pipelineData.unpaidLeave}
         />
         <StatCard
-          label="Total Employes"
+          label="Total Employees"
           icon={<FaUserPlus />}
           value={pipelineData.employess}
         />
@@ -165,9 +164,10 @@ const Dashboard = () => {
             <div className="flex-1 text-center">
               {new Date(request.end_date).toLocaleDateString()}
             </div>
+            <div className="flex-1 text-center">{request?.status}</div>
             <div className="flex-1 text-center">{request?.leave_days}</div>
            
-            <div className="flex-1 text-center">{request.reason}</div>
+          
             
           
           </div>

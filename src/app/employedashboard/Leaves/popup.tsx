@@ -27,7 +27,10 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
   const { register, handleSubmit, formState: { errors }, reset, control } = useForm<FormData>();
 
   const handleLeaveFormatChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLeaveFormat(event.target.value as 'halfday' | 'fullday' | 'multiday');
+    console.log("lave type is here")
+    console.log(event.target.value)
+    //@ts-ignore
+    setLeaveFormat(event.target.value);
   };
 
   const submitData = async (data: FormData) => {
@@ -65,6 +68,8 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
           end_date: new Date().toISOString(),
         };
         const response = await CreateLeave(halfday);
+        console.log("-----responce is here- ------")
+        console.log(response)
          await verificationmail(response)
         if (response.status === "error") {
           toast.error(response.message, { position: 'top-center' });
@@ -214,7 +219,7 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
                 cols={5}
                 rows={5}
                 className="mt-1 p-2 w-full border border-gray-300 rounded"
-                {...register('reason')}
+                {...register('reason',{required:"resone is required before submit"})}
               />
             </label>
             {errors.reason && <p className="text-red-500 text-sm mt-1">{errors.reason.message}</p>}

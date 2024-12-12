@@ -9,29 +9,32 @@ interface ApiResponse {
   message: string;
 }
 
-export default async function Passwordverify(email:string,password:string): Promise<ApiResponse | { error: string }> {
+export default async function Passwordverify(email:string,password:string,firstname:string,lastname:string): Promise<ApiResponse | { error: string }> {
   try {
    
    const url2 = process.env.PUBLIC_URL
     const url = `${url2}/sendmail`;
     const emailPayload = {
-        to: `${email}`,
-        subject: "Welcome to Cilans System !",
-        text: "Welcome! Your account has been successfully created.",
-        html: `
-            <p>Dear ${email},</p>
-            <p>Welcome to our service! We're excited to have you on board.</p>
-            <p>Your account has been successfully created with the following details:</p>
-            <ul>
-                <li><strong>Email:</strong> ${email}</li>
-                <li><strong>Password:</strong> ${password}</li>
-            </ul>
-            <p>Please make sure to keep your password secure and do not share it with anyone. If you did not create this account, please contact us immediately.</p>
-            <p>We are here to help if you have any questions. Enjoy exploring our platform!</p>
-            <p>Best regards,</p>
-            <p>The Cilans system Team</p>
-        `
+      to: `${email}`,
+      subject: "Welcome to CilansConnect!",
+      text: "Welcome! Your account has been successfully created.",
+      html: `
+          <p>Dear ${firstname} ${" "} ${lastname},</p>
+          <p>Welcome to CilansConnect! Our own HR platform. We're excited to have you on board.</p>
+          <p>Your account has been successfully created with the following details:</p>
+          <ul>
+               <li><strong>Link:</strong> <a href="https://hr-hms.cilans.in/">https://hr-hms.cilans.in/</a></li>
+              <li><strong>Email:</strong> ${email}</li>
+              <li><strong>Password:</strong> ${password}</li>
+          </ul>
+          <p>Please make sure to keep your password secure and do not share it with anyone.</p>
+          <p>We are here to help if you have any questions. Enjoy exploring our platform!</p>
+          <p>Best regards,</p>
+          <p>Admin</p>
+          <p>Cilans system</p>
+      `
     };
+    
     
      
 

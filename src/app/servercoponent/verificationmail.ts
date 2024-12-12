@@ -12,29 +12,35 @@ interface ApiResponse {
 
 export default async function verificationmail(data:any) {
 
-    console.log("data is comming form that")
-    console.log(data)
+    
   try {
    
    const url2 = process.env.PUBLIC_URL
     const url = `${url2}/sendmail`;
     const emailPayload = {
-        to: 'help.vnurture@gmail.com',
-        subject: "Leave Application Verification",
-        text: "Please verify the leave details of the employee.",
-        html: `
-            <p>Dear Manager,</p>
-            <p>This employee has applied for a <strong>${data.data.leave_type}</strong> leave.</p>
-            <ul>
-                <li><strong>Email:</strong> ${data.data.user.email}</li>
-                <li><strong>Start Date:</strong> ${formatDateToISO(data.data.start_date)}</li>
-                <li><strong>End Date:</strong> ${formatDateToISO(data.data.end_date)}</li>
-            </ul>
-            <p>Please check more details on the dashboard. Kindly confirm and take the necessary actions.</p>
-            <p>Best regards,</p>
-            <p>Cilans System</p>
-        `
-    };
+      to: 'help.vnurture@gmail.com',
+      subject: `Leave Request Notification from ${data.data.user.first_name} ${data.data.user.last_name}`,
+      text: `This is an automated notification regarding a leave request submitted by ${data.data.user.first_name} ${data.data.user.last_name} through the Cilans HR platform.`,
+      html: `
+          <p>Dear Admin,</p>
+          <p>This is an automated notification regarding a leave request submitted by <strong>${data.data.user.first_name} ${data.data.user.last_name}</strong> through the Cilans HR platform.</p>
+          <p><strong>Leave Request Details:</strong></p>
+          <ul>
+              <li><strong>Employee Name:</strong> ${data.data.user.first_name} ${data.data.user.last_name}</li>
+              <li><strong>Leave Type:</strong> ${data.data.leave_type}</li>
+              <li><strong>Leave Start Date:</strong> ${formatDateToISO(data.data.start_date)}</li>
+              <li><strong>Leave End Date:</strong> ${formatDateToISO(data.data.end_date)}</li>
+              <li><strong>Number of Days:</strong> ${data.data.leave_days}</li>
+              <li><strong>Reason for Leave:</strong> ${data.data.reason || 'Not Provided'}</li>
+          </ul>
+          <p>Please review the request in the HR platform for further action.</p>
+          <p>Best Regards,</p>
+          <p>Admin<br/>Cilans System</p>
+      `
+  };
+  console.log("----this is verification main----")
+    console.log(data)
+  
     
     
     

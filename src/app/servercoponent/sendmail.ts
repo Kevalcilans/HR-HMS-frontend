@@ -20,16 +20,18 @@ export default async function Sendmail(email:string,startdate:string,enddate:str
     {
       emailPayload = {
         to: `${email}`,
-        subject: "Confirm Leave Request - Approved",
+        subject: "Leave application status",
         text: "Your leave request has been approved successfully.",
         html: `
-            <p>We are pleased to inform you that your leave request has been <strong>approved</strong>.</p>
+        <p>Dear Employee,</p>
+            <p>This is to inform you that your leave request has been Approved.</p>
             <ul>
                 <li><strong>Start Date:</strong> ${startdate}</li>
                 <li><strong>End Date:</strong> ${enddate}</li>
             </ul>
-            <p>Enjoy your time off! If you need further assistance, please feel free to contact us.</p>
+            <p>If you need further assistance, please feel free to contact us.</p>
             <p>Best regards,</p>
+            <P>Admin</P>
             <p>Cilans System</p>
         `
     };
@@ -38,16 +40,17 @@ export default async function Sendmail(email:string,startdate:string,enddate:str
     else{
       emailPayload = {
         to: `${email}`,
-        subject: "Leave Request Status - Rejected",
+        subject: "Leave application status",
         text: "Your leave request has been rejected.",
         html: `
-            <p>Unfortunately, your leave request has been <strong>rejected</strong>.</p>
+            <p>This is to inform you that your leave request has been Rejected.</p>
             <ul>
                 <li><strong>Start Date:</strong> ${startdate}</li>
                 <li><strong>End Date:</strong> ${enddate}</li>
             </ul>
-            <p>If you have any questions or need clarification, please feel free to contact us.</p>
+            <p>If you need further assistance, please feel free to contact us.</p>
             <p>Best regards,</p>
+            <P>Admin</P>
             <p>Cilans System</p>
         `
     };

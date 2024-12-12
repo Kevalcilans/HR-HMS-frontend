@@ -51,10 +51,10 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
     // console.log(data)
   };
 
-  async function sendMail(email:string,password:string){
+  async function sendMail(email:string,password:string,first_name:string,last_name:string){
 
     try {
-      const response: any = await Passwordverify(email,password);
+      const response: any = await Passwordverify(email,password,first_name,last_name);
       console.log("response data is here", response);
       if (response.status === "error") {
         toast.error(response.message, { position: 'top-center' });
@@ -72,7 +72,7 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
     console.log("---hello data is comming---")
     console.log(data)
     submitData(data);
-    sendMail(data.email,data.password)
+    sendMail(data.email,data.password,data.first_name,data.last_name)
     reset();
   };
 

@@ -11,11 +11,17 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
-  const Logoutfn = ()=>{
-    Logout()
-    window.location.href = "/login"
+  const Logoutfn = () => {
+    
+    const isConfirmed = window.confirm("Are you sure you want to log out?");
+    
+  
+    if (isConfirmed) {
+      Logout(); 
+      window.location.href = "/login"; 
+    }
   }
-
+  
   return (
     <div
       className={`transition-all duration-300 ease-in-out ${
