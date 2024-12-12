@@ -131,11 +131,11 @@ const AllRequests = () => {
   }, [searchQuery, statusFilter, leaveRequests]);
 
   const headers = [
-    "Request ID",
+    "Sr no",
     "Employee Name",
     "Start Date",
     "End Date",
-    "Working Days",
+    "Leave Count",
     "Status",
     "Leave Type",
     // "Reason",
@@ -159,7 +159,7 @@ const AllRequests = () => {
         </select>
         <div className="flex justify-between">
           <button
-            className="bg-blue-800 text-white font-semibold rounded-md m-2 p-2 px-4"
+            className="bg-[#07549E] text-white font-semibold rounded-md m-2 p-2 px-4"
             onClick={openAddLeavePopup}
           >
             Create Request 
@@ -168,7 +168,7 @@ const AllRequests = () => {
       </div>
 
       <div className="bg-white shadow-md overflow-scroll">
-        <div className="flex bg-blue-600 text-white font-medium">
+        <div className="flex bg-[#07549E] text-white font-medium">
           {headers.map((header, index) => (
             <div key={index} className="flex-1 text-center py-3">
               {header}
@@ -209,7 +209,7 @@ const AllRequests = () => {
             {/* <div className="flex-1 text-center">{request.reason}</div> */}
             <div className="flex-1 text-center">
               <button
-                className="bg-blue-800 text-white font-semibold rounded-md p-2 mr-2 px-4 w-36"
+                className="bg-[#07549E] text-white font-semibold rounded-md p-2 mr-2 px-4 w-36"
                 onClick={() => openViewDetailsPopup(request.leave_request_id)}
               >
                 View Details

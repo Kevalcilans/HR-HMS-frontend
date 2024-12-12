@@ -50,7 +50,7 @@ const Employee = () => {
       <div className="flex justify-between">
         <h1 className="text-3xl font-bold text-blue-900">All Departments</h1>
         <button
-          className="bg-blue-800 text-white font-semibold rounded-md m-2 p-2 px-4"
+          className="bg-[#07549E] text-white font-semibold rounded-md m-2 p-2 px-4"
           onClick={openPopup}
         >
           Add Department
@@ -66,7 +66,7 @@ const Employee = () => {
         <table className="min-w-full table-auto">
           {/* Table Header */}
           <thead>
-            <tr className="bg-blue-600 text-white font-medium">
+            <tr className="bg-[#07549E] text-white font-medium">
               {headers.map((header, index) => (
                 <th key={index} className="py-3 px-4 text-center">
                   {header}
@@ -84,7 +84,7 @@ const Employee = () => {
                   index % 2 === 0 ? "bg-gray-50" : "bg-gray-100"
                 } hover:bg-blue-100 transition`}
               >
-                <td className="py-3 px-4 text-center">{department.department_id}</td>
+                <td className="py-3 px-4 text-center">{index + 1}</td>
                 <td className="py-3 px-4 text-center">{department.name}</td>
               </tr>
             ))}

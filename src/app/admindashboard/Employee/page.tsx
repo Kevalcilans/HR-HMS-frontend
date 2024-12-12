@@ -106,16 +106,7 @@ const Employee = () => {
    
 
 
-    const headers = [
-        "Employe ID",
-        "First Name",
-        "Last Name",
-        "Email",
-        "Department Name",
-        "Total avilable LeaveBalance",
-        "joining Date"
-
-    ];
+    
 
     // async function sendMail(email: any) {
     //     const url = "http://localhost:3000/sendmail";
@@ -190,7 +181,7 @@ const Employee = () => {
             <div className="flex justify-between">
                 <h1 className="text-3xl font-bold text-blue-900">All Employee</h1>
                 <button
-                    className="bg-blue-800 text-white font-semibold rounded-md m-2 p-2 px-4"
+                    className="bg-[#07549E] text-white font-semibold rounded-md m-2 p-2 px-4"
                     onClick={openPopup}
                 >
                     Create Employee
@@ -205,14 +196,15 @@ const Employee = () => {
                 <table className="min-w-full table-auto">
                     {/* Table Header */}
                     <thead>
-                        <tr className="bg-blue-600 text-white font-medium">
-                            <th className="py-3 px-4 text-center">User ID</th>
+                        <tr className="bg-[#07549E] text-white font-medium">
+                            <th className="py-3 px-4 text-center">Sr No</th>
+                            <th className="py-3 px-4 text-center">Employee Id</th>
                             <th className="py-3 px-4 text-center">First Name</th>
                             <th className="py-3 px-4 text-center">Last Name</th>
                             <th className="py-3 px-4 text-center">Email</th>
                             {/* <th className="py-3 px-4 text-center sm:hidden md:table-cell">Department</th> */}
-                            <th className="py-3 px-4 text-center sm:hidden md:table-cell">Leave Balance</th>
-                            <th className="py-3 px-4 text-center">Hire Date</th>
+                            {/* <th className="py-3 px-4 text-center sm:hidden md:table-cell">Leave Balance</th> */}
+                            <th className="py-3 px-4 text-center">joining Date</th>
                         </tr>
                     </thead>
 
@@ -228,6 +220,7 @@ const Employee = () => {
                                 >
                                   
                                     <td className="py-3 px-4 text-center">{index + 1}</td>
+                                    <td className="py-3 px-4 text-center">{request.emp_id}</td>
                                     
                                     
                                     <td onClick={()=>route.push( `/admindashboard/employedetails?search=${request?.user_id}`)}  className="py-3 px-4 text-center">
@@ -238,7 +231,7 @@ const Employee = () => {
                                     <td className="py-3 px-4 text-center">{request?.last_name}</td>
                                     <td className="py-3 px-4 text-center">{request?.email}</td>
                                     {/* <td className="py-3 px-4 text-center sm:hidden md:table-cell">{request?.department?.department_id}</td> */}
-                                    <td className="py-3 px-4 text-center sm:hidden md:table-cell">{request?.leave_balance}</td>
+                                    {/* <td className="py-3 px-4 text-center sm:hidden md:table-cell">{request?.leave_balance}</td> */}
                                     <td className="py-3 px-4 text-center">
                                         {new Date(request?.hire_date).toLocaleDateString()}
                                     </td>

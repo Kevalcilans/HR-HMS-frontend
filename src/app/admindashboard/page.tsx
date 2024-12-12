@@ -2,12 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import { FaThLarge, FaUsers, FaUserPlus } from "react-icons/fa";
+import { FaThLarge, FaUsers, FaUserPlus, FaEye } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import GetAllLeaves from "@/app/servercoponent/GetallLeaves";
 import AdmindashboardCount from "../servercoponent/countemployeeData";
 import ApproveLeave from "../servercoponent/ApproveLeaves";
 import Sendmail from "../servercoponent/sendmail";
+import ViewDetails from "./allRequest/viewDetails";
 
 // Types for leave requests
 interface LeaveRequest {
@@ -54,6 +55,8 @@ const Dashboard = () => {
   console.log(pipelineData)
 
   const [leaveRequests, setLeaveRequests] = useState<LeaveRequest[]>([]);
+  const [isViewDetailsPopupOpen, setIsViewDetailsPopupOpen] = useState(false);
+  const [selectedRequestId, setSelectedRequestId] = useState<number | null>(null);
 
   // Fetching leave requests and count data
   const fetchLeaveRequests = async () => {
@@ -89,13 +92,13 @@ const Dashboard = () => {
 
   // Headers for the leave request table
   const headers = [
-    "Request ID",
+    "Sr no",
     "Employee Name",
     "Start Date",
     "End Date",
-    "Working Days",
+    "Leave Count",
     "Status",
-    "Reason",
+    "View Details",
     "Action",
   ];
 
@@ -148,13 +151,23 @@ const Dashboard = () => {
       toast.error("An error occurred. Please try again.", { position: 'top-center' });
     }
   }
+ 
 
+  const openViewDetailsPopup = (requestId: number) => {
+    setSelectedRequestId(requestId);
+    setIsViewDetailsPopupOpen(true);
+  };
+
+  const closeViewDetailsPopup = () => {
+    setSelectedRequestId(null);
+    setIsViewDetailsPopupOpen(false);
+  };
 
  
 
   return (
     <div className="flex flex-col gap-6 bg-gray-100 w-full min-h-screen p-6">
-      <h1 className="text-3xl font-bold text-blue-900">Dashboard</h1>
+      <h1 className="text-3xl font-bold text-[#07549E]">Dashboard</h1>
 
       {/* Stat Cards */}
       <div className="grid grid-cols-3 gap-6">
@@ -164,7 +177,7 @@ const Dashboard = () => {
           value={pipelineData.Totaldepartment}
         />
         <StatCard
-          label="Employees"
+          label="Total Employees"
           icon={<FaUsers />}
           value={pipelineData.Employes}
         />
@@ -180,7 +193,7 @@ const Dashboard = () => {
   <table className="min-w-full table-auto over">
     {/* Table Header */}
     <thead>
-      <tr className="bg-blue-600 text-white font-medium">
+      <tr className="bg-[#07549E] text-white font-medium">
         {headers.map((header, index) => (
           <th key={index} className="py-3 px-4 text-center">
             {header}
@@ -222,14 +235,22 @@ const Dashboard = () => {
               {request.status}
             </span>
           </td>
-          <td className="py-3 px-4 text-center">{request.reason}</td>
+          <td className="py-3 px-4 text-center">
+          
+                    <button
+                      className="bg-[#07549E] text-white font-semibold rounded-md p-2"
+                      onClick={() => openViewDetailsPopup(request.leave_request_id)}
+                    >
+                      <FaEye />
+                    </button>
+          </td>
           
           <td className="py-3 px-4 text-center">
                   {request.status === "pending" ? (
                     <div className="flex justify-center gap-2">
                       <button
                         type="button"
-                        className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
+                        className="text-white bg-[#07549E] hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
                         onClick={() => {
                           sendMail(request.user.email,new Date(request.start_date).toLocaleDateString(),new Date(request.end_date).toLocaleDateString(),"approved");
                           updateLeaveStatus("approved", request.leave_request_id);
@@ -261,6 +282,13 @@ const Dashboard = () => {
     </tbody>
   </table>
 </div>
+<ViewDetails
+        isOpen={isViewDetailsPopupOpen}
+        onClose={closeViewDetailsPopup}
+        requestId={selectedRequestId}
+        setItems={setLeaveRequests}
+      />
+
 
       <ToastContainer />
     </div>

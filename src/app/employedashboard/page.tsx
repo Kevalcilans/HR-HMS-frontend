@@ -88,12 +88,13 @@ const Dashboard = () => {
 
   // Headers for the leave request table
   const headers = [
-    "Request ID",
+    "Sr no",
     "Employee Name",
     "Start Date",
     "End Date",
-    "Working Days",
     "Status",
+    "Leave Count",
+
   ];
 
   // Placeholder functions for mail sending and updating leave status
@@ -113,7 +114,7 @@ const Dashboard = () => {
 
       {/* Stat Cards */}
       <div className="grid grid-cols-3 gap-6">
-        <StatCard
+        {/* <StatCard
           label="available Leaves"
           icon={<FaThLarge />}
           value={pipelineData.availableLeaves}
@@ -127,7 +128,7 @@ const Dashboard = () => {
           label="Unpaid Leave"
           icon={<FaUserPlus />}
           value={pipelineData.unpaidLeave}
-        />
+        /> */}
         <StatCard
           label="Total Employees"
           icon={<FaUserPlus />}
@@ -138,7 +139,7 @@ const Dashboard = () => {
       <h1 className="font-semibold text-2xl mt-6">Your Approved Leaverequest</h1>
       <div className="bg-white shadow-md overflow-scroll mt-4">
         {/* Table Header */}
-        <div className="flex bg-blue-600 text-white font-medium">
+        <div className="flex bg-[#07549E] text-white font-medium">
           {headers.map((header, index) => (
             <div key={index} className="flex-1 text-center py-3">
               {header}
@@ -154,7 +155,7 @@ const Dashboard = () => {
               index % 2 === 0 ? "bg-gray-50" : "bg-gray-100"
             } hover:bg-blue-100 transition`}
           >
-            <div className="flex-1 text-center">{request.leave_request_id}</div>
+            <div className="flex-1 text-center">{index + 1}</div>
             <div className="flex-1 text-center">
               {`${request.user.first_name} ${request.user.last_name}`}
             </div>

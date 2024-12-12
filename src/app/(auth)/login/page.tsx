@@ -6,6 +6,7 @@ import LoginUser from './loginpage';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const Login = () => {
@@ -60,16 +61,20 @@ const Login = () => {
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-          <div className="mt-12 flex flex-col items-center">
-            <h1 className="text-2xl xl:text-3xl font-extrabold">Login Page</h1>
+          <div className="mt-12 flex flex-col ">
+            <div className='flex justify-center'>
+            <Image src="/cs-new.png" alt="Description of image" width={200} height={200} />
+            </div>
+            
+        
+            <div className='flex justify-center pt-20'>
+            
+            
+            <h1 className="text-2xl xl:text-3xl font-extrabold font-sans pb-12">Sign In</h1>
+            </div>
 
-            <div className="w-full flex-1 mt-8">
-              <div className="my-12 border-b text-center">
-                <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-
-                </div>
-              </div>
-
+            <div className="w-full ">
+              
               <div className="mx-auto max-w-xs">
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <input
@@ -111,13 +116,14 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex">
+        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex overflow-hidden">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{
-              backgroundImage: "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')",
+              backgroundImage: "url('/loginimage.svg')",
             }}
           ></div>
+          <h1 className='absolute top-20 font-semibold text-2xl max-w-2xl text-center pl-16 font-sans '>Welcome to our HR platform, your one-stop solution for seamless employee management!</h1>
         </div>
       </div>
       <ToastContainer />

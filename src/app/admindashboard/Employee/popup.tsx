@@ -33,7 +33,7 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
     console.log("first responce is comming ....")
     console.log(data)
     try {
-      const response: any = await RegisterUser(data);
+      const response: any = await RegisterUser({...data,departmentId:data.departmentId});
       console.log("response data is here", response);
       if (response.status === "error") {
         toast.error(response.message, { position: 'top-center' });
@@ -92,6 +92,21 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
         <h2 className="text-xl font-semibold mb-4">Add Employee</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
+
+         {/* Employe Id */}
+        <div>
+            <label className="block text-gray-700">
+              Employee Id 
+              
+              <input
+                type="number"
+                className="mt-1 p-2 w-full border border-gray-300 rounded"
+                {...register('emp_id', { required: 'Email is required',valueAsNumber:true })}
+              />
+            </label>
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+          </div>
+
           {/* First Name */}
           <div>
             <label className="block text-gray-700">
@@ -168,14 +183,15 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
           <div>
             <label className="block text-gray-700">
               Company
-              <input
+              {/* <input
                 type="number"
-                value={1}
+                value={"cilans system"}
                 className="mt-1 p-2 w-full border border-gray-400  bg-gray-100 rounded"
                 {...register('departmentId', { valueAsNumber:true })}
                 disabled={true}
                 
-              />
+              /> */}
+              <p className='mt-1 p-2 w-full border border-gray-400  bg-gray-100 rounded'>Cilans System</p>
             </label>
             {errors.departmentId && <p className="text-red-500 text-sm mt-1">{errors.departmentId.message}</p>}
           </div>
@@ -196,11 +212,11 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
           {/* Hire Date */}
           <div>
           <label className="block text-gray-700">
-          Hire Date
+          Joining Date
                     <Controller
                       name="hire_date"
                       control={control}
-                      rules={{ required: "Hire date and time are required" }}
+                      rules={{ required: "Joining date and time is required" }}
                       render={({ field: { onChange, value, ...field } }) => (
                         <input
                           id="hire_date"
@@ -226,7 +242,7 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
                   </div>
 
           {/* Leave Balance */}
-          <div>
+          {/* <div>
             <label className="block text-gray-700">
               Leave Balance
               <input
@@ -236,7 +252,7 @@ const AddEmployeePopup: React.FC<Popup> = ({ isOpen, onClose, setitems }) => {
               />
             </label>
             {errors.leave_balance && <p className="text-red-500 text-sm mt-1">{errors.leave_balance.message}</p>}
-          </div>
+          </div> */}
 
           {/* Submit Button */}
           <div className="col-span-2">

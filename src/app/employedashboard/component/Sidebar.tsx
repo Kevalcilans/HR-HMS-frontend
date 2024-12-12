@@ -4,6 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import Link from "next/link";
 import { EmployeeMenu } from "@/app/constent/navbarMenu";
 import Logout from "@/app/servercoponent/logout";
+import Image from "next/image";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -26,14 +27,14 @@ const Sidebar = () => {
     <div
       className={`transition-all duration-300 ease-in-out ${
         isOpen ? 'w-[268px]' : 'w-16'
-      } bg-gradient-to-b from-blue-900 to-blue-700 text-white h-screen flex flex-col shadow-lg`}
+      } bg-gradient-to-b bg-[#07549E] text-white h-screen flex flex-col shadow-lg`}
     >
       <div className="p-4 flex items-center justify-between border-b border-blue-700 ">
         <button onClick={toggleSidebar} className="text-white focus:outline-none">
           <i className="fas fa-bars text-xl"></i>
         </button>
         {isOpen && (
-          <span className="text-lg font-bold">Menu</span>
+          <span className="text-lg font-bold"><Image src="/image.png" alt="Description of image" width={100} height={100} /></span>
         )}
       </div>
 
@@ -43,7 +44,7 @@ const Sidebar = () => {
             <Link
               href={item.link}
               key={index}
-              className="flex items-center p-2 mx-2 rounded-lg pb-6 hover:bg-blue-600 hover:shadow-md transition-all duration-300"
+              className="flex items-center p-2 mx-2 rounded-lg pb-6 hover:bg-[#1B2949] hover:shadow-md transition-all duration-300"
             >
               <i className={`${item.icon} mr-4 text-lg `}></i>
               <span
@@ -71,7 +72,7 @@ const Sidebar = () => {
           )
         ))}
          <button
-              className="flex items-center w-full  p-2 mx-2 rounded-lg pb-6 hover:bg-blue-600 hover:shadow-md transition-all duration-300"
+              className="flex items-center w-full  p-2 mx-2 rounded-lg pb-6 hover:bg-[#1B2949] hover:shadow-md transition-all duration-300"
               onClick={()=>Logoutfn()}
             >
               <i className="fa fa-sign-out text-2xl pr-4"></i>
@@ -83,7 +84,7 @@ const Sidebar = () => {
                Logout
               </span>
             </button>
-        
+            
       </nav>
     </div>
   );

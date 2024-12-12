@@ -103,11 +103,11 @@ const AllRequests = () => {
   };
 
   const headers = [
-    "Request ID",
+    "Sr No",
     "Employee Name",
     "Start Date",
     "End Date",
-    "working Days",
+    "Leave Count",
     "Status",
     // "Reason",
     "Action",
@@ -140,7 +140,7 @@ const AllRequests = () => {
       <div className="bg-white shadow-md overflow-scroll">
         <table className="min-w-full table-auto">
           <thead>
-            <tr className="bg-blue-600 text-white font-medium">
+            <tr className="bg-[#07549E] text-white font-medium">
               {headers.map((header, index) => (
                 <th key={index} className="py-3 px-4 text-center">
                   {header}
@@ -186,7 +186,7 @@ const AllRequests = () => {
                 <td>
                   <div className="flex justify-center gap-2">
                     <button
-                      className="bg-blue-800 text-white font-semibold rounded-md p-2"
+                      className="bg-[#07549E] text-white font-semibold rounded-md p-2"
                       onClick={() => openViewDetailsPopup(request.leave_request_id)}
                     >
                       View Details
