@@ -117,6 +117,14 @@ const ViewDetails: React.FC<PopupProps> = ({ isOpen, onClose,requestId }) => {
             <p className="mt-1 p-2 w-full border border-gray-300 rounded">{formatDateToISO(leavedetails?.end_date)}</p>
           </div>
           <div>
+            <label className="block text-gray-700">Leave Type</label>
+            <p className="mt-1 p-2 w-full border border-gray-300 rounded">{leavedetails?.leave_type.replace("day", " day")}</p>
+          </div>
+          <div>
+            <label className="block text-gray-700">Desc</label>
+            <p className="mt-1 p-2 w-full border border-gray-300 rounded"> {leavedetails?.halfday_type}</p>
+          </div>
+          <div>
             <label className="block text-gray-700">working Days</label>
             <p className="mt-1 p-2 w-full border border-gray-300 rounded">{leavedetails?.leave_days}</p>
           </div>

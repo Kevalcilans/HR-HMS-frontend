@@ -205,7 +205,7 @@ const AllRequests = () => {
             >
               {request.status}
             </div>
-            <div className="flex-1 text-center">{request.leave_type}</div>
+            <div className="flex-1 text-center">{request.leave_type.replace("day", " day")}</div>
             {/* <div className="flex-1 text-center">{request.reason}</div> */}
             <div className="flex-1 text-center">
               <button

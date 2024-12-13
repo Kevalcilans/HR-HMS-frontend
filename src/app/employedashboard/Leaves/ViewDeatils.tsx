@@ -41,7 +41,7 @@ const ViewDetails: React.FC<PopupProps> = ({ isOpen, onClose,requestId }) => {
         return;
       }
       setleavedeatils(response?.data)
-
+      
 
     //   setLeaveRequests(response?.data || []);
     //   setFilteredRequests(response?.data || []);
@@ -116,6 +116,14 @@ const ViewDetails: React.FC<PopupProps> = ({ isOpen, onClose,requestId }) => {
           <div>
             <label className="block text-gray-700">End Date</label>
             <p className="mt-1 p-2 w-full border border-gray-300 rounded">{formatDateToISO(leavedetails?.end_date)}</p>
+          </div>
+          <div>
+            <label className="block text-gray-700">Leave Type</label>
+            <p className="mt-1 p-2 w-full border border-gray-300 rounded">{leavedetails?.leave_type}</p>
+          </div>
+          <div>
+            <label className="block text-gray-700">Desc</label>
+            <p className="mt-1 p-2 w-full border border-gray-300 rounded"> {leavedetails?.halfday_type?.replace(/half/, "half ")}</p>
           </div>
           <div>
             <label className="block text-gray-700">Working Days</label>

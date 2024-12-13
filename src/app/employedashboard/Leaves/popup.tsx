@@ -58,14 +58,14 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
         console.error("Error:", error);
         toast.error("An error occurred. Please try again.", { position: 'top-center' });
       }
-    } else if (leaveFormat === 'halfday') {
+    } else if (leaveFormat === 'half day') {
       try {
         const halfday = {
           ...data,
           leave_type:leaveFormat,
           halfday_type:halfleavetype,
-          start_date: new Date().toISOString(),
-          end_date: new Date().toISOString(),
+          start_date: new Date(data.start_date),
+          end_date: new Date(data.start_date),
         };
         const response = await CreateLeave(halfday);
         console.log("-----responce is here- ------")
@@ -163,7 +163,6 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
           </label>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
-          {leaveFormat !== 'halfday' && (
             <div>
               <label className="block text-gray-700">
                 Start Date
@@ -175,7 +174,7 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
               </label>
               {errors.start_date && <p className="text-red-500 text-sm mt-1">{errors.start_date.message}</p>}
             </div>
-          )}
+          
           {leaveFormat !== 'halfday' && leaveFormat === 'multiday' && (
             <div>
               <label className="block text-gray-700">
@@ -205,8 +204,8 @@ const AddLeavePopup: React.FC<PopupProps> = ({ isOpen, onClose, setItems }) => {
                     onChange={selectdropdown}
                   >
                     <option value="">Select...</option>
-                    <option value="firsthalf">First Half</option>
-                    <option value="secondhalf">Second Half</option>
+                    <option value="first half">First Half</option>
+                    <option value="second half">Second Half</option>
                   </select>
                 )}
               />
