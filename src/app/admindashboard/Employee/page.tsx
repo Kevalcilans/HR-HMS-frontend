@@ -223,7 +223,7 @@ const Employee = () => {
                                     <td className="py-3 px-4 text-center">{request.emp_id}</td>
                                     
                                     
-                                    <td onClick={()=>route.push( `/admindashboard/employedetails?search=${request?.user_id}`)}  className="py-3 px-4 text-center">
+                                    <td  className="py-3 px-4 text-center">
                                         {request?.first_name}
                                     </td>
                                   

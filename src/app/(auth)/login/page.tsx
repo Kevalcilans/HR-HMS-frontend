@@ -107,7 +107,7 @@ const Login = () => {
 
                   <button 
                     type="submit" 
-                    className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                    className="mt-5 tracking-wide font-semibold bg-[#3c5187] text-gray-100 w-full py-4 rounded-lg hover:bg-[#1B2949] transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                   >
                     <span className="ml-3">Login</span>
                   </button>
@@ -116,14 +116,14 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className="flex-1 bg-indigo-100 text-center hidden lg:flex overflow-hidden relative">
+        <div className="flex-1 bg-[#1B2949] text-center hidden lg:flex overflow-hidden relative">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
             style={{
-              backgroundImage: "url('/loginimage.svg')",
+              backgroundImage: "url('/tranferent.png')",
             }}
           ></div>
-          <h1 className='absolute top-10 font-semibold text-2xl max-w-2xl text-center pl-16 font-sans '>Welcome to our HR platform, your one-stop solution for seamless employee management!</h1>
+          <h1 className='absolute top-16 text-white font-semibold text-2xl max-w-3xl text-center pl-12 font-mono '>Welcome to our HR platform, your one-stop solution for seamless employee management!</h1>
         </div>
       </div>
       <ToastContainer />
